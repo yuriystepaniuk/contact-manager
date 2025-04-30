@@ -80,5 +80,24 @@ export const theme = createTheme({
         }),
       },
     },
+    MuiPaper: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          padding: theme.spacing(2),
+        }),
+      },
+    },
+    MuiContainer: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          padding: theme.spacing(2),
+        }),
+      },
+    },
+    MuiStack: {
+      defaultProps: {
+        spacing: 2,
+      },
+    },
   },
 });

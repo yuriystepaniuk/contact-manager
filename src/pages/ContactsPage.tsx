@@ -1,5 +1,15 @@
+import { useState } from "react";
+import { Container } from "@mui/material";
+import ContactList from "../components/ContactList/ContactList";
+
 const ContactsPage = () => {
-  return <div>ContactsPage</div>;
+  const [search, setSearch] = useState("");
+
+  return (
+    <Container>
+      <ContactList search={search} />
+    </Container>
+  );
 };
 
 export default ContactsPage;
