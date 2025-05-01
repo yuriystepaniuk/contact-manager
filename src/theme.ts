@@ -7,6 +7,9 @@ export const theme = createTheme({
       white: "#FFFFFF",
       black: "#000000",
       gray: "#C7C7C7",
+      scrollbarTrack: "#f1f1f1",
+      scrollbarThumb: "#888",
+      scrollbarThumbHover: "#757575",
     },
     background: {
       default: "#F5F5F5",
@@ -26,6 +29,27 @@ export const theme = createTheme({
     button: { textTransform: "none" },
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: (theme) => ({
+        "*::-webkit-scrollbar": {
+          width: "8px",
+        },
+        "*::-webkit-scrollbar-track": {
+          background: theme.palette.custom.scrollbarTrack,
+        },
+        "*::-webkit-scrollbar-thumb": {
+          backgroundColor: theme.palette.custom.scrollbarThumb,
+          borderRadius: "4px",
+        },
+        "*::-webkit-scrollbar-thumb:hover": {
+          background: theme.palette.custom.scrollbarThumbHover,
+        },
+        "*": {
+          scrollbarWidth: "thin",
+          scrollbarColor: `${theme.palette.custom.gray} ${theme.palette.custom.scrollbarTrack}`,
+        },
+      }),
+    },
     MuiTextField: {
       defaultProps: {
         variant: "outlined",

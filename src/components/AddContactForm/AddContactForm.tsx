@@ -1,32 +1,21 @@
 import { useForm, Controller } from "react-hook-form";
 import { TextField, Button, Stack, Box } from "@mui/material";
-import { useAddUserMutation } from "../../redux/api/userApi";
+import { FormValues } from "../../types/formValues.types.ts";
 
 interface AddContactFormProps {
+  onSubmit: (data: FormValues) => void;
   onClose: () => void;
+  isLoading: boolean;
 }
 
-interface FormValues {
-  name: string;
-  email: string;
-}
-
-const AddContactForm = ({ onClose }: AddContactFormProps) => {
-  const { control, handleSubmit, reset } = useForm<FormValues>({
+const AddContactForm = ({
+  onClose,
+  onSubmit,
+  isLoading,
+}: AddContactFormProps) => {
+  const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: { name: "", email: "" },
   });
-
-  const [addUser, { isLoading }] = useAddUserMutation();
-
-  const onSubmit = async (data: FormValues) => {
-    try {
-      await addUser(data).unwrap();
-      reset();
-      onClose();
-    } catch (error) {
-      console.error("Failed to add user:", error);
-    }
-  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

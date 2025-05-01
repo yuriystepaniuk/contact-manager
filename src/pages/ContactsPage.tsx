@@ -2,51 +2,38 @@ import { useState } from "react";
 import {
   Container,
   Stack,
-  Box,
-  Button,
   Dialog,
   DialogTitle,
   DialogContent,
 } from "@mui/material";
 
-import ContactList from "../components/ContactList/ContactList";
-import SearchField from "../components/SearchField/SearchField";
-import { useGetUsersQuery } from "../redux/api/userApi";
 import Loader from "../components/Loader/Loader";
 import ErrorMessage from "../components/ErrorMessage/ErrorMessage";
-import SortBlock from "../components/SortBlock/SortBlock";
 import AddContactForm from "../components/AddContactForm/AddContactForm";
+import { useContacts } from "../hooks/useContact";
+import ContactsMain from "../components/ContactsMain/ContactsMain";
 
 const ContactsPage = () => {
-  const [search, setSearch] = useState("");
-  const { data: users = [], isLoading, isError } = useGetUsersQuery();
-  const [sort, setSort] = useState<"asc" | "desc">("asc");
+  const { users, isLoading, isError, addUser, isAdding } = useContacts();
+
   const [modalOpen, setModalOpen] = useState(false);
 
   if (isLoading) return <Loader />;
   if (isError) return <ErrorMessage message="Error loading contacts" />;
 
+  const handleSubmit = async (data: { name: string; email: string }) => {
+    const result = await addUser(data);
+    if (result.success) {
+      setModalOpen(false);
+    } else {
+      alert("Failed to add user. Please try again.");
+    }
+  };
+
   return (
     <Container sx={{ height: "100vh", overflow: "hidden" }}>
       <Stack>
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            alignItems: "center",
-            gap: 1,
-          }}
-        >
-          <Box sx={{ flex: 1, width: 300 }}>
-            <SearchField value={search} onChange={setSearch} />
-          </Box>
-          <SortBlock sort={sort} onSortChange={setSort} />
-          <Button onClick={() => setModalOpen(true)}>Add User</Button>
-        </Box>
-
-        <ContactList search={search} users={users} sort={sort} />
-
+        <ContactsMain users={users} onAddUserClick={() => setModalOpen(true)} />
         <Dialog
           open={modalOpen}
           onClose={() => setModalOpen(false)}
@@ -55,7 +42,11 @@ const ContactsPage = () => {
         >
           <DialogTitle>Add new user</DialogTitle>
           <DialogContent>
-            <AddContactForm onClose={() => setModalOpen(false)} />
+            <AddContactForm
+              isLoading={isAdding}
+              onSubmit={handleSubmit}
+              onClose={() => setModalOpen(false)}
+            />
           </DialogContent>
         </Dialog>
       </Stack>
