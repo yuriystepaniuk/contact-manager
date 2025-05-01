@@ -26,10 +26,6 @@ const ContactList = ({ search, users, sort }: Props) => {
   }, [search]);
 
   useEffect(() => {
-    listRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [page]);
-
-  useEffect(() => {
     if (listRef.current) {
       listRef.current.scrollTo({ top: 0, behavior: "smooth" });
     }
