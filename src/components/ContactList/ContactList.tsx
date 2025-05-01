@@ -4,30 +4,22 @@ import { Box, Stack, Pagination, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
 import ContactItem from "../ContactItem/ContactItem";
-import { useGetUsersQuery } from "../../redux/api/userApi";
-import Loader from "../Loader/Loader";
-import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import { User } from "../../types/user.types";
 
 interface Props {
   search: string;
+  users: User[];
 }
 
-const ContactList = () => {
+const ContactList = ({ search, users }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const perPage = isMobile ? 7 : 10;
   const [page, setPage] = useState(1);
 
-  const search = "";
-
   useEffect(() => {
     setPage(1);
   }, [search]);
-
-  const { data: users = [], isLoading, isError } = useGetUsersQuery();
-
-  if (isLoading) return <Loader />;
-  if (isError) return <ErrorMessage message="Error loading contacts" />;
 
   const filtered = users.filter((user) =>
     user.name.toLowerCase().includes(search.toLowerCase())
@@ -36,7 +28,7 @@ const ContactList = () => {
   const paginated = filtered.slice((page - 1) * perPage, page * perPage);
 
   return (
-    <Box sx={{ height: "94dvh", display: "flex", flexDirection: "column" }}>
+    <Box sx={{ height: "85dvh", display: "flex", flexDirection: "column" }}>
       <Box sx={{ overflowY: "auto", flexGrow: 1 }}>
         <Stack spacing={2}>
           {paginated.map((user) => (
