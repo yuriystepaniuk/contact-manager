@@ -92,6 +92,7 @@ export const theme = createTheme({
       },
       styleOverrides: {
         root: ({ theme }) => ({
+          cursor: "pointer",
           borderRadius: theme.shape.borderRadius,
           padding: theme.spacing(1, 2),
           backgroundColor: theme.palette.primary.main,
