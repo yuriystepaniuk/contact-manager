@@ -11,7 +11,7 @@ interface Props {
   users: User[];
 }
 
-const ContactList = ({ search, users }: Props) => {
+const ContactList = ({ search, users, sort }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const perPage = isMobile ? 7 : 10;
