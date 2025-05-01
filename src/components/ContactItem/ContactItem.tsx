@@ -7,8 +7,8 @@ interface ContactItemProps {
 
 const ContactItem = ({ name, email }: ContactItemProps) => (
   <Paper>
-    <Typography>{name}</Typography>
-    <Typography>{email}</Typography>
+    <Typography noWrap>{name}</Typography>
+    <Typography noWrap>{email}</Typography>
   </Paper>
 );
 

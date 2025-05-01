@@ -23,7 +23,10 @@ const AddContactForm = ({
         <Controller
           name="name"
           control={control}
-          rules={{ required: "Name  is required" }}
+          rules={{
+            required: "Name  is required",
+            maxLength: { value: 50, message: "Max 50 characters" },
+          }}
           render={({ field, fieldState }) => (
             <TextField
               {...field}
@@ -39,6 +42,8 @@ const AddContactForm = ({
           control={control}
           rules={{
             required: "Email is required",
+            maxLength: { value: 50, message: "Max 50 characters" },
+
             pattern: {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
               message: "Incorrect email",
