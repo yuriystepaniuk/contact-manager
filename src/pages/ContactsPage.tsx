@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Container, Stack, Box, Button } from "@mui/material";
+import {
+  Container,
+  Stack,
+  Box,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+} from "@mui/material";
 
 import ContactList from "../components/ContactList/ContactList";
 import SearchField from "../components/SearchField/SearchField";
@@ -7,6 +15,7 @@ import { useGetUsersQuery } from "../redux/api/userApi";
 import Loader from "../components/Loader/Loader";
 import ErrorMessage from "../components/ErrorMessage/ErrorMessage";
 import SortBlock from "../components/SortBlock/SortBlock";
+import AddContactForm from "../components/AddContactForm/AddContactForm";
 
 const ContactsPage = () => {
   const [search, setSearch] = useState("");
@@ -37,6 +46,18 @@ const ContactsPage = () => {
         </Box>
 
         <ContactList search={search} users={users} sort={sort} />
+
+        <Dialog
+          open={modalOpen}
+          onClose={() => setModalOpen(false)}
+          fullWidth
+          maxWidth="sm"
+        >
+          <DialogTitle>Add new user</DialogTitle>
+          <DialogContent>
+            <AddContactForm onClose={() => setModalOpen(false)} />
+          </DialogContent>
+        </Dialog>
       </Stack>
     </Container>
   );

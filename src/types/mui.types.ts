@@ -12,8 +12,5 @@ declare module "@mui/material/styles" {
       black?: string;
       gray?: string;
     };
-    primary: {
-      gray?: string;
-    };
   }
 }

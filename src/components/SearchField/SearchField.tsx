@@ -6,7 +6,7 @@ interface SearchFieldProps {
 }
 const SearchField = ({ value, onChange }: SearchFieldProps) => (
   <TextField
-    label="Search by name..."
+    label="Search..."
     value={value}
     onChange={(e) => onChange(e.target.value)}
   />

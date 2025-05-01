@@ -13,7 +13,14 @@ export const userApi = createApi({
     getUsers: builder.query<User[], void>({
       query: () => "/users",
     }),
+    addUser: builder.mutation<User, Partial<User>>({
+      query: (newUser) => ({
+        url: "/users",
+        method: "POST",
+        body: newUser,
+      }),
+    }),
   }),
 });
 
-export const { useGetUsersQuery } = userApi;
+export const { useGetUsersQuery, useAddUserMutation } = userApi;
