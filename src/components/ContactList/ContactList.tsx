@@ -1,20 +1,64 @@
-import { Stack } from "@mui/material";
-import ContactItem from "../ContactItem/ContactItem";
+import { useState, useEffect } from "react";
 
-const mockedContacts = [
-  { id: 1, name: "John Doe", email: "john@example.com" },
-  { id: 2, name: "Jane Smith", email: "jane@example.com" },
-];
+import { Box, Stack, Pagination, useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+
+import ContactItem from "../ContactItem/ContactItem";
+import { useGetUsersQuery } from "../../redux/api/userApi";
+import Loader from "../Loader/Loader";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 interface Props {
   search: string;
 }
-const ContactList = ({ search }: Props) => (
-  <Stack>
-    {mockedContacts.map((contact) => (
-      <ContactItem key={contact.id} name={contact.name} email={contact.email} />
-    ))}
-  </Stack>
-);
+
+const ContactList = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const perPage = isMobile ? 7 : 10;
+  const [page, setPage] = useState(1);
+
+  const search = "";
+
+  useEffect(() => {
+    setPage(1);
+  }, [search]);
+
+  const { data: users = [], isLoading, isError } = useGetUsersQuery();
+
+  if (isLoading) return <Loader />;
+  if (isError) return <ErrorMessage message="Error loading contacts" />;
+
+  const filtered = users.filter((user) =>
+    user.name.toLowerCase().includes(search.toLowerCase())
+  );
+  const totalPages = Math.ceil(filtered.length / perPage);
+  const paginated = filtered.slice((page - 1) * perPage, page * perPage);
+
+  return (
+    <Box sx={{ height: "94dvh", display: "flex", flexDirection: "column" }}>
+      <Box sx={{ overflowY: "auto", flexGrow: 1 }}>
+        <Stack spacing={2}>
+          {paginated.map((user) => (
+            <ContactItem key={user.id} name={user.name} email={user.email} />
+          ))}
+        </Stack>
+      </Box>
+
+      {totalPages > 1 && (
+        <Box sx={{ borderTop: 1, borderColor: "divider", p: 1 }}>
+          <Pagination
+            count={totalPages}
+            page={page}
+            defaultPage={1}
+            onChange={(_, value) => setPage(value)}
+            siblingCount={0}
+            sx={{ display: "flex", justifyContent: "center" }}
+          />
+        </Box>
+      )}
+    </Box>
+  );
+};
 
 export default ContactList;
