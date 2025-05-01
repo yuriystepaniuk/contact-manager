@@ -9,6 +9,7 @@ import { User } from "../../types/user.types";
 interface Props {
   search: string;
   users: User[];
+  sort: "asc" | "desc";
 }
 
 const ContactList = ({ search, users, sort }: Props) => {
@@ -24,9 +25,12 @@ const ContactList = ({ search, users, sort }: Props) => {
   const filtered = users.filter((user) =>
     user.name.toLowerCase().includes(search.toLowerCase())
   );
-  const totalPages = Math.ceil(filtered.length / perPage);
-  const paginated = filtered.slice((page - 1) * perPage, page * perPage);
+  const sorted = filtered.sort((a, b) =>
+    sort === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
+  );
 
+  const totalPages = Math.ceil(filtered.length / perPage);
+  const paginated = sorted.slice((page - 1) * perPage, page * perPage);
   return (
     <Box sx={{ height: "85dvh", display: "flex", flexDirection: "column" }}>
       <Box sx={{ overflowY: "auto", flexGrow: 1 }}>

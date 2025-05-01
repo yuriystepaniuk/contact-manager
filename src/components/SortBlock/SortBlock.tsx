@@ -1,4 +1,5 @@
 import { ToggleButtonGroup, ToggleButton, Box } from "@mui/material";
+
 interface SortBlockProps {
   sort: "asc" | "desc";
   onSortChange: (v: "asc" | "desc") => void;
@@ -9,7 +10,7 @@ const SortBlock = ({ sort, onSortChange }: SortBlockProps) => (
       value={sort}
       exclusive
       size="small"
-      onChange={(e, v) => v && onSortChange(v)}
+      onChange={(_, value) => value && onSortChange(value)}
       aria-label="sort order"
     >
       <ToggleButton value="asc" aria-label="ascending">
