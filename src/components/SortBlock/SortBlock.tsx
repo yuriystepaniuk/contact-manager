@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import { ToggleButtonGroup, ToggleButton, Box } from "@mui/material";
 
 interface SortBlockProps {
@@ -7,12 +6,9 @@ interface SortBlockProps {
 }
 
 const SortBlock = ({ sort, onSortChange }: SortBlockProps) => {
-  const handleChange = useCallback(
-    (_: unknown, value: "asc" | "desc" | null) => {
-      if (value) onSortChange(value);
-    },
-    [onSortChange]
-  );
+  const handleChange = (_: unknown, value: "asc" | "desc" | null) => {
+    if (value) onSortChange(value);
+  };
 
   return (
     <Box>

@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import { TextField } from "@mui/material";
 
 interface SearchFieldProps {
@@ -7,12 +6,9 @@ interface SearchFieldProps {
 }
 
 const SearchField = ({ value, onChange }: SearchFieldProps) => {
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      onChange(e.target.value);
-    },
-    [onChange]
-  );
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e.target.value);
+  };
 
   return <TextField label="Search..." value={value} onChange={handleChange} />;
 };

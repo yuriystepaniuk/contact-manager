@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { useState } from "react";
 import ContactListHeader from "../ContactListHeader/ContactListHeader";
 import ContactList from "../ContactList/ContactList";
@@ -27,4 +26,4 @@ const ContactsMain = ({ onAddUserClick, users }: Props) => {
   );
 };
 
-export default memo(ContactsMain);
+export default ContactsMain;

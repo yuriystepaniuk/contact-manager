@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { Box, Button } from "@mui/material";
 import SearchField from "../SearchField/SearchField";
 import SortBlock from "../SortBlock/SortBlock";
@@ -34,4 +33,4 @@ const ContactListHeader = ({
     <Button onClick={onAddUserClick}>Add User</Button>
   </Box>
 );
-export default memo(ContactListHeader);
+export default ContactListHeader;
