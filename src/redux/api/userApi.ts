@@ -1,9 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { User } from "../../types/user.types";
 
-const baseUrl = import.meta.env.VITE_SERVER_URL;
-console.log("Base URL:", baseUrl);
-
+const baseUrl = "fffss://jsonplaceholder.typicode.com";
+// import.meta.env.VITE_SERVER_URL
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
