@@ -6,6 +6,7 @@ export const theme = createTheme({
     custom: {
       white: "#FFFFFF",
       black: "#000000",
+      gray: "#C7C7C7",
     },
     background: {
       default: "#F5F5F5",
@@ -15,8 +16,8 @@ export const theme = createTheme({
       secondary: "#757575",
     },
     primary: {
-      main: "#646cff",
-      dark: "#535bf2",
+      main: "#FFFFFF",
+      dark: "#E6E6E6",
     },
   },
   typography: {
@@ -34,30 +35,44 @@ export const theme = createTheme({
         root: ({ theme }) => ({
           "& .MuiOutlinedInput-root": {
             backgroundColor: theme.palette.custom.white,
+            color: theme.palette.custom.black,
+
             "& fieldset": {
-              borderColor: theme.palette.primary.main,
+              borderColor: theme.palette.custom.gray,
             },
             "&:hover fieldset": {
               borderColor: theme.palette.primary.dark,
             },
             "&.Mui-focused fieldset": {
-              borderColor: theme.palette.primary.dark,
+              borderColor: theme.palette.custom.gray,
             },
           },
         }),
       },
     },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          color: theme.palette.text.primary,
+          "&.Mui-focused": {
+            color: theme.palette.custom.black,
+          },
+        }),
+      },
+    },
+
     MuiButton: {
       defaultProps: {
-        variant: "contained",
-        size: "medium",
+        variant: "outlined",
+        size: "small",
       },
       styleOverrides: {
         root: ({ theme }) => ({
           borderRadius: theme.shape.borderRadius,
           padding: theme.spacing(1, 2),
           backgroundColor: theme.palette.primary.main,
-          color: theme.palette.custom.white,
+          color: theme.palette.text.secondary,
+          border: `1px solid ${theme.palette.custom.gray}`,
           "&:hover": {
             backgroundColor: theme.palette.primary.dark,
           },

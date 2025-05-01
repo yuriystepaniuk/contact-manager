@@ -5,7 +5,7 @@ interface SortBlockProps {
   onSortChange: (v: "asc" | "desc") => void;
 }
 const SortBlock = ({ sort, onSortChange }: SortBlockProps) => (
-  <Box sx={{ ml: 1 }}>
+  <Box>
     <ToggleButtonGroup
       value={sort}
       exclusive

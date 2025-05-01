@@ -7,7 +7,6 @@ interface SearchFieldProps {
 const SearchField = ({ value, onChange }: SearchFieldProps) => (
   <TextField
     label="Search by name..."
-    fullWidth
     value={value}
     onChange={(e) => onChange(e.target.value)}
   />

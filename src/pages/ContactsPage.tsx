@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Container, Stack, Box } from "@mui/material";
+import { Container, Stack, Box, Button } from "@mui/material";
+
 import ContactList from "../components/ContactList/ContactList";
 import SearchField from "../components/SearchField/SearchField";
 import { useGetUsersQuery } from "../redux/api/userApi";
@@ -11,25 +12,30 @@ const ContactsPage = () => {
   const [search, setSearch] = useState("");
   const { data: users = [], isLoading, isError } = useGetUsersQuery();
   const [sort, setSort] = useState<"asc" | "desc">("asc");
+  const [modalOpen, setModalOpen] = useState(false);
 
   if (isLoading) return <Loader />;
   if (isError) return <ErrorMessage message="Error loading contacts" />;
 
   return (
-    <Container>
+    <Container sx={{ height: "100vh", overflow: "hidden" }}>
       <Stack>
         <Box
           sx={{
             display: "flex",
+            flexWrap: "wrap",
             justifyContent: "space-between",
             alignItems: "center",
+            gap: 1,
           }}
         >
-          <Box sx={{ flex: 1, maxWidth: 500 }}>
+          <Box sx={{ flex: 1, width: 300 }}>
             <SearchField value={search} onChange={setSearch} />
           </Box>
           <SortBlock sort={sort} onSortChange={setSort} />
+          <Button onClick={() => setModalOpen(true)}>Add User</Button>
         </Box>
+
         <ContactList search={search} users={users} sort={sort} />
       </Stack>
     </Container>
